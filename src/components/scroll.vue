@@ -34,6 +34,11 @@ export default {
   watch: {
     reloadTip(a) {
       console.log(a)
+    },
+    songLists() {
+      setTimeout(() => {
+        this.refresh()
+      }, 20)
     }
   },
   created() {
@@ -53,6 +58,7 @@ export default {
         probeType: 1,
         click: true
       })
+      console.log(this.scroll)
       this.scroll.on('scroll', (pos) => {
         // 下拉刷新
         if (pos.y > 30) {
@@ -79,7 +85,7 @@ export default {
         }
         // 手指离开
         this.scroll.on('touchend', (e) => {
-          console.log('touchend') 
+          console.log('touchend')
           if (e.y >= 30) {
             this.pullDownState = false
           }
@@ -115,7 +121,7 @@ export default {
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
   }
   .loadMore {
     position: absolute;
