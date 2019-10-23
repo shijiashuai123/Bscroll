@@ -4,6 +4,10 @@
         <div class="menuList">
             <div class="menuItem" :class="item.selected ? 'selectedd' : 'notSel'" v-for="(item, index) in menuList" :key="index" @click="selectedMenuFun(item)">{{item.name}}</div>
         </div>
+        <div>
+            已选择菜单：
+            <div v-for="(item, index) in allSelected" :key="index">{{item.name}}</div>
+        </div>
     </div>
 </template>
 
@@ -17,7 +21,19 @@ export default {
                 {name: '菜单三', id: 3, selected: false},
                 {name: '菜单四', id: 4, selected: false},
             ],
-            isAllSelected: false
+            isAllSelected: false,
+            selectedList: []
+        }
+    },
+    computed: {
+        allSelected() {
+            this.selectedList = []
+            this.menuList.forEach(item => {
+                if (item.selected) {
+                    this.selectedList.push(item)
+                }
+            })
+            return this.selectedList
         }
     },
     methods: {
@@ -26,7 +42,6 @@ export default {
             this.isAllSelected = this.menuList.every( item => {
                 return item.selected
             })
-            console.log(this.isAllSelected)
         },
         allSelectFun() {
             this.isAllSelected = !this.isAllSelected
@@ -38,7 +53,7 @@ export default {
                     item.selected = false
                 }
             })
-        }
+        },
     }
 }
 </script>
